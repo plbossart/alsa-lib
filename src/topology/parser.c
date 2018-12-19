@@ -386,6 +386,18 @@ int snd_tplg_add_object(snd_tplg_t *tplg, snd_tplg_obj_template_t *t)
 	case SND_TPLG_TYPE_HWDEP:
 		return tplg_add_hwdep_object(tplg, t);
 	default:
+		/* the following are not handled:
+		 * SND_TPLG_TYPE_TLV
+		 * SND_TPLG_TYPE_TEXT
+		 * SND_TPLG_TYPE_DATA
+		 * SND_TPLG_TYPE_STREAM_CONFIG
+		 * SND_TPLG_TYPE_STREAM_CAPS
+		 * SND_TPLG_TYPE_MANIFEST
+		 * SND_TPLG_TYPE_TOKEN
+		 * SND_TPLG_TYPE_TUPLE
+		 * SND_TPLG_TYPE_HW_CONFIG
+		 * plus any other value not in the enum list
+		 */
 		SNDERR("error: invalid object type %d\n", t->type);
 		return -EINVAL;
 	};
