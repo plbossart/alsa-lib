@@ -256,6 +256,10 @@ struct tplg_elem* tplg_elem_new_common(snd_tplg_t *tplg,
 		tplg_elem_insert(elem, &tplg->hw_cfg_list);
 		obj_size = sizeof(struct snd_soc_tplg_hw_config);
 		break;
+	case SND_TPLG_TYPE_HWDEP:
+		tplg_elem_insert(elem, &tplg->hwdep_list);
+		obj_size = sizeof(struct snd_soc_tplg_hwdep);
+		break;
 	default:
 		free(elem);
 		return NULL;

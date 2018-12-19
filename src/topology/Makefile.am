@@ -10,7 +10,8 @@ libtopology_la_SOURCES =\
 	text.c \
 	channel.c \
 	ops.c \
-	elem.c
+	elem.c \
+	hwdep.c
 
 noinst_HEADERS = tplg_local.h
 

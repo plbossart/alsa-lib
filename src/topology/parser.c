@@ -216,6 +216,14 @@ static int tplg_parse_config(snd_tplg_t *tplg, snd_config_t *cfg)
 			continue;
 		}
 
+		if (strcmp(id, "SectionHWDep") == 0) {
+			err = tplg_parse_compound(tplg, n,
+				tplg_parse_hwdep, NULL);
+			if (err < 0)
+				return err;
+			continue;
+		}
+
 		SNDERR("error: unknown section %s\n", id);
 	}
 	return 0;
@@ -375,6 +383,8 @@ int snd_tplg_add_object(snd_tplg_t *tplg, snd_tplg_obj_template_t *t)
 	case SND_TPLG_TYPE_BE:
 	case SND_TPLG_TYPE_CC:
 		return tplg_add_link_object(tplg, t);
+	case SND_TPLG_TYPE_HWDEP:
+		return tplg_add_hwdep_object(tplg, t);
 	default:
 		SNDERR("error: invalid object type %d\n", t->type);
 		return -EINVAL;
@@ -480,6 +490,7 @@ snd_tplg_t *snd_tplg_new(void)
 	INIT_LIST_HEAD(&tplg->token_list);
 	INIT_LIST_HEAD(&tplg->tuple_list);
 	INIT_LIST_HEAD(&tplg->hw_cfg_list);
+	INIT_LIST_HEAD(&tplg->hwdep_list);
 
 	return tplg;
 }
@@ -507,6 +518,7 @@ void snd_tplg_free(snd_tplg_t *tplg)
 	tplg_elem_free_list(&tplg->token_list);
 	tplg_elem_free_list(&tplg->tuple_list);
 	tplg_elem_free_list(&tplg->hw_cfg_list);
+	tplg_elem_free_list(&tplg->hwdep_list);
 
 	free(tplg);
 }

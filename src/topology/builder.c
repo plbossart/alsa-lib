@@ -223,6 +223,10 @@ static int write_block(snd_tplg_t *tplg, struct list_head *base,
 	case SND_TPLG_TYPE_DAI:
 		return write_elem_block(tplg, base, size,
 			SND_SOC_TPLG_TYPE_DAI, "dai");
+	case SND_TPLG_TYPE_HWDEP:
+		return write_elem_block(tplg, base, size,
+			SND_SOC_TPLG_TYPE_HWDEP, "hwdep");
+
 	default:
 		return -EINVAL;
 	}
@@ -349,6 +353,14 @@ int tplg_write_data(snd_tplg_t *tplg)
 		SND_TPLG_TYPE_DATA);
 	if (ret < 0) {
 		SNDERR("failed to write private data %d\n", ret);
+		return ret;
+	}
+
+	/* write hwdep elems */
+	ret = write_block(tplg, &tplg->hwdep_list,
+		SND_TPLG_TYPE_HWDEP);
+	if (ret < 0) {
+		SNDERR("failed to write hwdep elems %d\n", ret);
 		return ret;
 	}
 
