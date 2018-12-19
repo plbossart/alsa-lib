@@ -80,7 +80,8 @@ typedef enum _snd_hwdep_iface {
 	SND_HWDEP_IFACE_FW_MOTU,	/* MOTU FireWire series */
 	SND_HWDEP_IFACE_FW_FIREFACE,	/* RME Fireface series */
 
-	SND_HWDEP_IFACE_LAST = SND_HWDEP_IFACE_FW_FIREFACE,	/**< last known hwdep interface */
+	SND_HWDEP_IFACE_BINARY_BLOB,	/* Binary blob for DSPs/algorithms */
+	SND_HWDEP_IFACE_LAST = SND_HWDEP_IFACE_BINARY_BLOB,	/**< last known hwdep interface */
 } snd_hwdep_iface_t;
 
 /** open for reading */

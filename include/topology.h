@@ -766,6 +766,7 @@ enum snd_tplg_type {
 	SND_TPLG_TYPE_LINK,		/*!< Physical DAI link */
 	SND_TPLG_TYPE_HW_CONFIG,	/*!< Link HW config */
 	SND_TPLG_TYPE_DAI,		/*!< Physical DAI */
+	SND_TPLG_TYPE_HWDEP,		/*!< HWdep interface */
 };
 
 /** Fit for all user cases */
@@ -1053,6 +1054,17 @@ struct snd_tplg_link_template {
 	struct snd_soc_tplg_private *priv; /*!< private data */
 };
 
+/** \struct snd_tplg_hwdep_template
+ * \brief Template type for HWdep interfaces
+ */
+struct snd_tplg_hwdep_template {
+	const char *name;	/*!< link name, used to match */
+	int id;			/*!< unique ID - used to match */
+	int iface;		/*!< SND_HWDEP_IFACE_ enum value */
+	int bytes_max;		/*!< max blob size for IFACE_BINARY_BLOB */
+	struct snd_soc_tplg_private *priv; /*!< private data */
+};
+
 /** \struct snd_tplg_obj_template
  * \brief Generic Template Object
  */
@@ -1070,6 +1082,7 @@ typedef struct snd_tplg_obj_template {
 		struct snd_tplg_pcm_template *pcm;		/*!< PCM elements */
 		struct snd_tplg_link_template *link;		/*!< physical DAI Links */
 		struct snd_tplg_dai_template *dai;		/*!< Physical DAI */
+		struct snd_tplg_hwdep_template *hwdep;		/*!< HWdep interfaces */
 	};
 } snd_tplg_obj_template_t;
 

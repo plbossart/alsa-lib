@@ -99,6 +99,8 @@ struct snd_tplg {
 	struct list_head mixer_list;
 	struct list_head enum_list;
 	struct list_head bytes_ext_list;
+
+	struct list_head hwdep_list;
 };
 
 /* object text references */
@@ -172,6 +174,7 @@ struct tplg_elem {
 		struct snd_soc_tplg_stream *stream_cfg;
 		struct snd_soc_tplg_stream_caps *stream_caps;
 		struct snd_soc_tplg_hw_config *hw_cfg;
+		struct snd_soc_tplg_hwdep *hwdep;
 
 		/* these do not map to UAPI structs but are internal only */
 		struct snd_soc_tplg_ctl_tlv *tlv;
@@ -257,6 +260,9 @@ int tplg_parse_cc(snd_tplg_t *tplg,
 int tplg_parse_hw_config(snd_tplg_t *tplg, snd_config_t *cfg,
 			 void *private ATTRIBUTE_UNUSED);
 
+int tplg_parse_hwdep(snd_tplg_t *tplg, snd_config_t *cfg,
+		     void *private ATTRIBUTE_UNUSED);
+
 int tplg_build_data(snd_tplg_t *tplg);
 int tplg_build_manifest_data(snd_tplg_t *tplg);
 int tplg_build_controls(snd_tplg_t *tplg);
@@ -321,3 +327,7 @@ int tplg_build_links(snd_tplg_t *tplg, unsigned int type);
 int tplg_add_link_object(snd_tplg_t *tplg, snd_tplg_obj_template_t *t);
 int tplg_add_pcm_object(snd_tplg_t *tplg, snd_tplg_obj_template_t *t);
 int tplg_add_dai_object(snd_tplg_t *tplg, snd_tplg_obj_template_t *t);
+
+int tplg_add_hwdep_object(snd_tplg_t *tplg, snd_tplg_obj_template_t *t);
+int tplg_add_hwdep(snd_tplg_t *tplg, struct snd_tplg_hwdep_template *hwdep,
+		   struct tplg_elem **e);
